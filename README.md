@@ -1,7 +1,7 @@
 # RadmindTfix4SIP
 Process a Radmind transcript to be compatible with SIP on OSX
 
-##Description:
+## Description:
 
 Radmind expects the root user to be able to write to all areas of the local
 filesystem. In OSX 10.11 and later, SIP (System Integrity Protection) 
@@ -43,19 +43,25 @@ Strangely, I have come across files that have neither a "com.apple.rootless" ext
 However in general, SIP protection appears to be too complex to completely emulate using simple negative or exclude transcripts, hence the need for this script.
 
 
-##Installation:
+## Installation:
 
 Download the "RadmindTfix4SIP" script to a convenient location.
 
 
-##How to use:
+## How to use:
 
 In a shell, Type:
 	
 	RadmindTfix4SIP SourceTranscriptFile [DestTranscriptFile]
 
 
-##History:
+## History:
+
+1.0.8 - 11 AUG 2018
+
+* Some of the initial setup is saved in /tmp/ so that the script runs quicker when called the second time round.
+* No-longer "touches" the transcript if there are no modifications to make.  
+* Tidied up the code a bit.
 
 1.0.7 - 30 MAR 2016
 
