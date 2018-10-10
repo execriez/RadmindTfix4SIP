@@ -57,6 +57,10 @@ In a shell, Type:
 
 ## History:
 
+1.0.9 - 09 OCT 2018
+
+* Previous version tidy up broke the code in some situations. Now fixed. 
+
 1.0.8 - 11 AUG 2018
 
 * Some of the initial setup is saved in /tmp/ so that the script runs quicker when called the second time round.

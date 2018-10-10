@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Short:    Process a Radmind transcript to be compatible with SIP on OSX
-# Version:  1.0.8, 10-Aug-2018
+# Version:  1.0.9, 09-Oct-2018
 # Author:   Mark J Swift
 #
 # Usage:    
@@ -220,20 +220,13 @@ cat "${sv_SrcTranscriptFilePath}" | grep -E "${sv_Pattern}" > "${sv_TmpDir}"/inc
 cp "${sv_TmpDir}"/exc.T "${sv_TmpDir}"/tmp.T
 cat "${sv_TmpDir}"/inc.T >> "${sv_TmpDir}"/tmp.T
 cat "${sv_TmpDir}"/inc.T >> "${sv_TmpDir}"/tmp.T
-cat "${sv_TmpDir}"/tmp.T | sort | uniq -u > "${sv_TmpDir}"/exc.T
+cat "${sv_TmpDir}"/tmp.T | sort | uniq -u | "${sv_RadCmdDir}"/lsort ${sv_SortOption} > "${sv_TmpDir}"/exc.T
 
 # ---
 
 # Remove the remaining excludes from the main transcript (also exclude / if included)
-cp "${sv_SrcTranscriptFilePath}" "${sv_TmpDir}"/tmp.T
-cat "${sv_TmpDir}"/exc.T >> "${sv_TmpDir}"/tmp.T
-cat "${sv_TmpDir}"/exc.T >> "${sv_TmpDir}"/tmp.T
-cat "${sv_TmpDir}"/tmp.T | sort | uniq -u | grep -v "^d / " > "${sv_TmpDir}"/t.T
+diff "${sv_SrcTranscriptFilePath}" "${sv_TmpDir}"/exc.T --suppress-common-lines | grep "^< " | sed "s|^< ||" | grep -v "^d / " > "${sv_TmpTranscriptFilePath}"
 
-# ---
-# sort the transcript
-"${sv_RadCmdDir}"/lsort ${sv_SortOption} -o"${sv_TmpTranscriptFilePath}" "${sv_TmpDir}"/t.T
-  
 # ---
   
 # Check src transcript against processed transcript
